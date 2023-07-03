@@ -1,0 +1,35 @@
+.form-wrapper {
+    border: 1px solid #000;
+    padding: 20px;
+}
+
+input {
+    display: block;
+    margin-top: 10px;
+    min-width: 1000px;
+    border-radius: 5px;
+    border: 1px solid #dfdfdf
+}
+
+.btn-submit {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: .2s;    
+}
+
+.btn-show-password {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: .2s;    
+}
+
+.btn-submit:hover, .btn-show-password:hover {
+    background-color: #000;
+    color: #fff;
+}

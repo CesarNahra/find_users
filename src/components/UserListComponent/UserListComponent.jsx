@@ -1,38 +1,62 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './UserListComponent.css';
+import { UserContext } from "../../contexts/UserContext";
 
 const UserListComponent = () => {
 
-    const [users, setUsers] = useState(['Matias', 'João', 'Rafael', 'José']);
+    const usuarios = [
+        {
+            id: 1,
+            name: 'rafinha123',
+            age: 20,
+        },
+        {
+            id: 2,
+            name: 'jaozindopagodi',
+            age: 30,
+        },
+        {
+            id: 3,
+            name: 'jonhgoleirodointer',
+            age: 28,
+        },
+        {
+            id: 4,
+            name: 'amebadeouro',
+            age: 32,
+        }
+    ];
 
-    const [nickname, setNickname] = useState('');
-    const [age, setAge] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { user, setUser, userList, setUserList } = useContext(UserContext);
 
-    const userData = {
-        
-    }
+    const [filteredList, setFilteredList] = useState(usuarios);
+    const [search, setSearch] = useState('');
 
-    const handleAdd = (e) => {
-        const addUser = users.push(userData);
+    useEffect(() => {
+        if(search.length > 2) {
+            setFilteredList(usuarios.filter(usuario => usuario.includes(search)));
+        }
+    }, [search])
+
+    const handleSearch = (e) => {
         e.preventDefault();
-        setUsers(addUser);
+        const { value } = e.target;
+        setSearch(value);
     }
 
     return(
-        <div className="form-wrapper">
+        <>
             <form>
-                <input type="text" name="nickname" id="nickname" placeholder="Digite o seu nome de usuário"/>
-                <input type="number" name="age" id="age" placeholder="Digite a sua idade"/>
-                <input type="email" name="email" id="email" placeholder="Digite o seu email"/>
-                <input type="password" name="password" id="password" placeholder="Digite a sua senha"/>
+                <input type="text" name="search" id="search"  placeholder="Pesquise aqui" onChange={handleSearch}/>
             </form>
-            <button type='submit' onClick={handleAdd}>Adicionar usuário</button>
-            {users.map((user) => (
-                <li key={user.id}>{user.name}</li>
-            ))}
-        </div>
+            <ul>
+                {filteredList.map(usuario => {
+                    return(
+                        <li key={usuario.id}>{usuario.name} - {usuario.age}<button className="btn-update-data">Atualizar dados</button></li>
+                    );
+                })}
+            </ul>
+        </>
     );
 
 }

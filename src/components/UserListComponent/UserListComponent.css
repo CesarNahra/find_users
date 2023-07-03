@@ -1,25 +1,14 @@
-.form-wrapper {
-    border: 1px solid #000;
-    padding: 20px;
-}
-
-input {
-    margin-top: 10px;
-    min-width: 1000px;
-    border-radius: 5px;
-    border: 1px solid #dfdfdf
-}
-
-button {
+.btn-update-data {
     margin-top: 50px;
-    padding: 20px;
+    margin-left: 10px;
+    padding: 5px;
     border: 1px solid #dfdfdf;
     border-radius: 5px;
     text-transform: uppercase;
     transition: .2s;    
 }
 
-button:hover {
+.btn-update-data:hover {
     background-color: #000;
     color: #fff;
 }
