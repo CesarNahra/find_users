@@ -1,60 +1,40 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import './UserListComponent.css';
 import { UserContext } from "../../contexts/UserContext";
+import { LikeBtnComponent } from "../LikeBtnComponent/LikeBtnComponent";
+import { ModalContext } from "../../contexts/ModalContext";
+import { UserModalComponent } from "../UserModalComponent/UserModalComponent";
 
 const UserListComponent = () => {
 
-    const usuarios = [
-        {
-            id: 1,
-            name: 'rafinha123',
-            age: 20,
-        },
-        {
-            id: 2,
-            name: 'jaozindopagodi',
-            age: 30,
-        },
-        {
-            id: 3,
-            name: 'jonhgoleirodointer',
-            age: 28,
-        },
-        {
-            id: 4,
-            name: 'amebadeouro',
-            age: 32,
-        }
-    ];
+    const { userList } = useContext(UserContext);
+    const { showModal, setShowModal, setUsuario } = useContext(ModalContext);
 
-    const { user, setUser, userList, setUserList } = useContext(UserContext);
 
-    const [filteredList, setFilteredList] = useState(usuarios);
-    const [search, setSearch] = useState('');
-
-    useEffect(() => {
-        if(search.length > 2) {
-            setFilteredList(usuarios.filter(usuario => usuario.includes(search)));
-        }
-    }, [search])
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const { value } = e.target;
-        setSearch(value);
+    const handleShowModal = (usuario) => {
+        setUsuario(usuario);
+        setShowModal(true)
     }
 
     return(
         <>
             <form>
-                <input type="text" name="search" id="search"  placeholder="Pesquise aqui" onChange={handleSearch}/>
+                <input type="text" name="search" id="search"  placeholder="Pesquise aqui" list="usuarios"/>
+                <datalist id="usuarios">
+                    {userList.map(usuario => {
+                        return(
+                            <option key={usuario.id} value={usuario.nickname}>{usuario.email}</option>
+                        )
+                    })}
+                </datalist>
             </form>
             <ul>
-                {filteredList.map(usuario => {
+                {userList.map(usuario => {
                     return(
-                        <li key={usuario.id}>{usuario.name} - {usuario.age}<button className="btn-update-data">Atualizar dados</button></li>
+                        <li key={usuario.id}>{usuario.nickname} - {usuario.age}<button className="btn-update-data" type="button" onClick={() => handleShowModal(usuario)}>Atualizar dados</button><LikeBtnComponent/></li>
                     );
                 })}
+                {showModal && <UserModalComponent/>}
             </ul>
         </>
     );

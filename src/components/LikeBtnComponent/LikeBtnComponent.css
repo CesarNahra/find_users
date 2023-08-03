@@ -1,0 +1,7 @@
+.btn-like {
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    text-transform: lowercase;
+}
